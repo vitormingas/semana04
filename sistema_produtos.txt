@@ -1,0 +1,153 @@
+programa
+{
+    funcao inicio()
+    {
+        cadeia nomes[10]
+        real precos[10]
+        cadeia categorias[10]
+        
+        inteiro total = 0
+        cadeia resp = "s"
+        inteiro i, j
+
+        para (i = 0; i < 10; i++)
+        {
+            se (resp == "s")
+            {
+                escreva("Nome: ")
+                leia(nomes[i])
+
+                escreva("Preço: R$ ")
+                leia(precos[i])
+
+                escreva("Categoria: ")
+                leia(categorias[i])
+
+                total = total + 1
+
+                escreva("Continuar? (s/n): ")
+                leia(resp)
+            }
+        }
+
+        real menor = precos[0]
+        real maior = precos[0]
+        real soma = 0.0
+
+        para (i = 0; i < total; i++)
+        {
+            se (precos[i] < menor)
+            {
+                menor = precos[i]
+            }
+            se (precos[i] > maior)
+            {
+                maior = precos[i]
+            }
+            soma = soma + precos[i]
+        }
+        real media = soma / total
+
+        cadeia unicas[10]
+        inteiro total_unicas = 0
+        inteiro existe
+
+        para (i = 0; i < total; i++)
+        {
+            existe = 0
+            para (j = 0; j < total_unicas; j++)
+            {
+                se (categorias[i] == unicas[j])
+                {
+                    existe = 1
+                }
+            }
+            se (existe == 0)
+            {
+                unicas[total_unicas] = categorias[i]
+                total_unicas = total_unicas + 1
+            }
+        }
+
+        cadeia ord_nomes[10]
+        real ord_precos[10]
+        cadeia ord_cat[10]
+
+        para (i = 0; i < total; i++)
+        {
+            ord_nomes[i] = nomes[i]
+            ord_precos[i] = precos[i]
+            ord_cat[i] = categorias[i]
+        }
+
+        real aux_preco
+        cadeia aux_nome
+        cadeia aux_cat
+
+        para (i = 0; i < total - 1; i++)
+        {
+            para (j = 0; j < total - 1; j++)
+            {
+                se (ord_precos[j] > ord_precos[j + 1])
+                {
+                    aux_preco = ord_precos[j]
+                    ord_precos[j] = ord_precos[j + 1]
+                    ord_precos[j + 1] = aux_preco
+
+                    aux_nome = ord_nomes[j]
+                    ord_nomes[j] = ord_nomes[j + 1]
+                    ord_nomes[j + 1] = aux_nome
+
+                    aux_cat = ord_cat[j]
+                    ord_cat[j] = ord_cat[j + 1]
+                    ord_cat[j + 1] = aux_cat
+                }
+            }
+        }
+
+        real limite
+        escreva("\nDigite um valor para filtro: R$ ")
+        leia(limite)
+
+        escreva("\n--- RELATÓRIO FINAL ---\n")
+        escreva("Menor preço: R$ ", menor, "\n")
+        escreva("Maior preço: R$ ", maior, "\n")
+        escreva("Média: R$ ", media, "\n")
+
+        escreva("\nCategorias:\n")
+        para (i = 0; i < total_unicas; i++)
+        {
+            escreva("- ", unicas[i], "\n")
+        }
+
+        escreva("\nProdutos crescente:\n")
+        para (i = 0; i < total; i++)
+        {
+            escreva(ord_nomes[i], " - R$ ", ord_precos[i], " - ", ord_cat[i], "\n")
+        }
+
+        escreva("\nProdutos decrescente:\n")
+        para (i = total - 1; i >= 0; i--)
+        {
+            escreva(ord_nomes[i], " - R$ ", ord_precos[i], " - ", ord_cat[i], "\n")
+        }
+
+        escreva("\nAcima de R$ ", limite, ":\n")
+        para (i = 0; i < total; i++)
+        {
+            se (precos[i] > limite)
+            {
+                escreva(nomes[i], " - R$ ", precos[i], "\n")
+            }
+        }
+
+        escreva("\nAbaixo de R$ ", limite, ":\n")
+        para (i = 0; i < total; i++)
+        {
+            se (precos[i] < limite)
+            {
+                escreva(nomes[i], " - R$ ", precos[i], "\n")
+            }
+        }
+    }
+}
